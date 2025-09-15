@@ -35,5 +35,29 @@ jobs:
         id: plan
         run: terraform plan -no-color -input=false
         continue-on-error: true
-        working-directory: environments/dev  
+        working-directory: environments/dev
+  terraformapply:
+    name: terraform apply
+    runs-on: myrunner
+    environment: dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: bfb6d48a-ef3b-4793-bf4c-83d24cd8a5b0
+          tenant-id: e30abb13-e248-442c-b835-29af747e86b6
+          subscription-id: ecf1c36f-8eba-469e-841f-a595c299e914
+      - name: Terraform Init
+        id: init
+        run: terraform init -lock=false -input=false
+        working-directory: environments/dev
+      - name: Terraform apply
+        id: apply
+        run: terraform apply
+        continue-on-error: true
+        working-directory: environments/dev
+      
+    
          
