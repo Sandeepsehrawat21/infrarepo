@@ -39,6 +39,7 @@ jobs:
   terraformapply:
     name: terraform apply
     runs-on: myrunner
+    needs: terraformInitPlan
     environment: dev
     steps:
       - name: Checkout
