@@ -23,9 +23,9 @@ jobs:
         id: fmt
         run: terraform fmt -check -recursive -diff
         continue-on-error: true
-        working-directory: environmenty/dev
+        working-directory: environment/dev
       - name: Terraform Init
         id: init
         run: terraform init -lock=false -input=false
-        working-directory: environmenty/dev
+        working-directory: environment/dev
          
