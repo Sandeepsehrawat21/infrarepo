@@ -2,11 +2,30 @@ name: infra deployment
 
 on: workflow_dispatch
 
-permission:
+permissions:
   id-token: write
-  id-token: write
+  contents: read
 
 jobs:
   terraformInitPlan:
     name: Terraform Init-Plan
-    runs-on: self
+    runs-on: myrunner
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: bfb6d48a-ef3b-4793-bf4c-83d24cd8a5b0
+          tenant-id: e30abb13-e248-442c-b835-29af747e86b6
+          subscription-id: ecf1c36f-8eba-469e-841f-a595c299e914
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check -recursive -diff
+        continue-on-error: true
+        working-directory: environmenty/dev
+      - name: Terraform Init
+        id: init
+        run: terraform init -lock=false -input=false
+        working-directory: environmenty/dev
+         
