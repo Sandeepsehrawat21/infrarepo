@@ -28,8 +28,8 @@ module "sql_server" {
   sql_server_name = "sql-dev-todoapp"
   rg_name         = "rg-dev-todoapp"
   location        = "centralindia"
-  admin_username  = "devopsadmin"
-  admin_password  = "P@ssw01rd@123"
+  admin_username  = "Sandeep"
+  admin_password  = "Sandeep@21"
   tags            = local.common_tags
 }
 
