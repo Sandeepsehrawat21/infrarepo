@@ -21,11 +21,19 @@ jobs:
           subscription-id: ecf1c36f-8eba-469e-841f-a595c299e914
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -check -recursive -diff
+        run: terraform fmt -check 
         continue-on-error: true
         working-directory: environments/dev
       - name: Terraform Init
         id: init
         run: terraform init -lock=false -input=false
         working-directory: environments/dev
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+        working-directory: environments/dev  
          
